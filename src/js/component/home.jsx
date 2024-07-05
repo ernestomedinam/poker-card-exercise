@@ -1,24 +1,17 @@
-import React from "react";
-import {drawRandomCard} from "../utils/helpers";
+import React, { useState } from "react";
+import { ReservationForm } from "./ReservationForm";
+import { EMPTY_RESERVATION } from "../utils/helpers";
+import { Reservations } from "./Reservations";
 
 //create your first component
 const Home = () => {
-	const card = drawRandomCard();
+	const [reservations, setReservations] = useState([]);
 	return (
-		<div className="d-flex justify-content-center align-items-center w-100 h-100">
-			<div className="poker-card" style={{
-				color: card.suit.color
-			}}>
-				<div className="suit top-suit">
-					<span>{card.suit.label}</span>
-				</div>
-				<div className="face-value">
-					<h1>{card.faceValue}</h1>
-				</div>
-				<div className="suit bottom-suit">
-					<span>{card.suit.label}</span>
-				</div>
-			</div>
+		<div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+			<ReservationForm addReservation={(reservation) => {
+				setReservations((prev) => ([...prev, reservation]));
+			}} />
+			<Reservations reservations={reservations} />
 		</div>
 	);
 };
